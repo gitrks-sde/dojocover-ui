@@ -9,7 +9,7 @@ on:
   pull_request:
 
   schedule:
-    - cron: '35 4 * * *'
+    - cron: '45 4 * * *'   # 10:15 AM IST
 
   workflow_dispatch:
     inputs:
@@ -31,8 +31,10 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
+          cache-dependency-path: dojocover-ui/pom.xml
 
       - name: Run Suite
+        working-directory: dojocover-ui
         run: >
           mvn -B clean test
           -DtestSuite=${{ inputs.suite || 'src/test/resources/suites/dataDrivenTest.xml' }}
@@ -44,7 +46,7 @@ jobs:
           name: test-reports
           retention-days: 10
           path: |
-            target/surefire-reports
-            target/logs
-            test-output
-            screenshots
+            dojocover-ui/target/surefire-reports
+            dojocover-ui/target/logs
+            dojocover-ui/test-output
+            dojocover-ui/screenshots
