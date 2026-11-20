@@ -16,6 +16,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>17</maven.compiler.release>
 		<testSuite>testng.xml</testSuite>
+		<headless>false</headless>
 	</properties>
 
 	<dependencies>
@@ -80,6 +81,9 @@
 					<suiteXmlFile>
 						${testSuite}</suiteXmlFile>
 					</suiteXmlFiles>
+					<systemPropertyVariables>
+					<headless>${headless}</headless>
+					</systemPropertyVariables>
 					</configuration>
 				</plugin>
 				<plugin>
