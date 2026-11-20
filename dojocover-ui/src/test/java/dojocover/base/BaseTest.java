@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -24,8 +25,14 @@ public class BaseTest {
 	@BeforeClass
 	public void initializeConnection()
 	{
-		WebDriver driver=new EdgeDriver();
+		EdgeOptions options=new EdgeOptions();
+		if(Boolean.getBoolean("headless"))
+		{
+			options.addArguments("--headless=new","--window-size=1920,1080");
+		}
+		WebDriver driver=new EdgeDriver(options);
 		driver.manage().window().maximize();
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		DRIVER.set(driver);
 		driver.get(URL);
