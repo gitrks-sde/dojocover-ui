@@ -9,7 +9,7 @@ on:
   pull_request:
 
   schedule:
-    - cron: '45 4 * * *'
+    - cron: '50 4 * * *'
 
   workflow_dispatch:
     inputs:
@@ -33,6 +33,7 @@ jobs:
           cache: maven
 
       - name: Run Suite
+        working-directory: dojocover-ui
         run: >
           mvn -B clean test
           -DtestSuite=${{ inputs.suite || 'src/test/resources/suites/dataDrivenTest.xml' }}
